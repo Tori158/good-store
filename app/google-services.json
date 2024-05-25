@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "108437097074",
+    "project_id": "mapproject-419804",
+    "storage_bucket": "mapproject-419804.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108437097074:android:cc58e9931da69fde3f10eb",
+        "android_client_info": {
+          "package_name": "ko.co.second"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvuNpRT2vVxHxAXvOG-0SInlK2-21xkQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
