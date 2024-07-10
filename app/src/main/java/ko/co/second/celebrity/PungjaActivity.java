@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.app.ActionBar;
 
 import ko.co.second.R;
 
@@ -22,5 +23,9 @@ public class PungjaActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        ActionBar actionBar = getSupportActionBar(); // ActionBar 객체 가져오기
+        if (actionBar != null) {
+            actionBar.hide(); // ActionBar 숨기기
+        }
     }
 }
