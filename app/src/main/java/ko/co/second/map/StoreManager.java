@@ -249,7 +249,11 @@ public class StoreManager {
     }
 
     // 유튜버 이름을 기반으로 가게 목록을 가져오는 메서드
-    public List<Store> getStoresByYoutuber(String youtuberName) {
-        return storesMap.get(youtuberName);
+    public List<Store> getStores() {
+        List<Store> allStores = new ArrayList<>();
+        for (List<Store> storeList : storesMap.values()) {
+            allStores.addAll(storeList);
+        }
+        return allStores;
     }
 }
