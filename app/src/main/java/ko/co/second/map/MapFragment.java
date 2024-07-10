@@ -95,8 +95,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     break;
 
             }
-            marker.setWidth(100); // 마커의 너비 설정
-            marker.setHeight(100); // 마커의 높이 설정
+            marker.setWidth(150); // 마커의 너비 설정
+            marker.setHeight(150); // 마커의 높이 설정
             marker.setPosition(store.getLocation());
             marker.setCaptionText(store.getStoreName()); // 가게 이름 표시
             marker.setMap(mNaverMap);
