@@ -55,99 +55,106 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/sigungbutton"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="15dp"
+            android:id="@+id/jyangButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="#00FFFFFF"
-            app:srcCompat="@drawable/sigung"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:srcCompat="@drawable/home_jyang"
+            tools:ignore="SpeakableTextPresentCheck"/>
 
         <ImageButton
-            android:id="@+id/pungja_button"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="15dp"
+            android:id="@+id/sangmuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="#00FFFFFF"
-            app:srcCompat="@drawable/pung_ja"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:srcCompat="@drawable/home_sangmu"
+            tools:ignore="SpeakableTextPresentCheck"
+            />
+    </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/sangmubutton"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="15dp"
-            android:background="#00FFFFFF"
-            app:srcCompat="@drawable/sang_mu"
-            tools:ignore="SpeakableTextPresentCheck" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/jyangbutton"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="15dp"
-            android:background="#00FFFFFF"
-            app:srcCompat="@drawable/jyang"
-            tools:ignore="SpeakableTextPresentCheck" />
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="쯔양"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="맛상무"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/pungjaButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/home_pungja"
+            tools:ignore="SpeakableTextPresentCheck"
+            />
+
+        <ImageButton
+            android:id="@+id/sungsiButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            app:srcCompat="@drawable/home_si"
+            tools:ignore="SpeakableTextPresentCheck"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/sigung_name"
+            android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:text="성시경"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/pungja_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="풍자"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/sangmu_name"
+            android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="65dp"
-            android:text="맛상무"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="성시경"
+            android:textSize="16sp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/jyang_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:text="쯔양"
-            android:textStyle="bold" />
-
     </LinearLayout>
-
-    <View
-        android:layout_width="380dp"
-        android:layout_height="0.5dp"
-        android:layout_gravity="center"
-        android:background="#7A7878"
-        android:layout_marginBottom="10dp"
-        />
-
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="추천 맛집"
-        android:textSize="20sp"
-        android:layout_marginLeft="10dp"
-        />
 
 </LinearLayout>

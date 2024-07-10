@@ -2,21 +2,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Second"
         tools:targetApi="31">
-
         <activity
-            android:name=".MapActivity"
-            android:exported="true" />
+            android:name=".SungsiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PungjaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SangmuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".JyangActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
@@ -27,9 +41,6 @@
             android:exported="false" />
         <activity
             android:name=".FindID"
-            android:exported="false" />
-        <activity
-            android:name=".CertificationActivity"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
@@ -46,13 +57,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <activity android:name=".PagerActivity" />
+        <activity android:name=".PagerActivity" />
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

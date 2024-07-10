@@ -4,37 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#DAB001"
     tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="200dp"
-        android:layout_height="250dp"
+        android:layout_width="214dp"
+        android:layout_height="311dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="100dp"
-        android:layout_marginBottom="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dish" />
+        app:srcCompat="@drawable/mainicon" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/poetsenone_regular"
         android:text="MAKEAT"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toStartOf="@+id/imageView" />
 
     <Button
         android:id="@+id/Login"
@@ -43,17 +40,16 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="100dp"
         android:layout_marginRight="20dp"
+        android:backgroundTint="#F7F5DB"
         android:fontFamily="@font/laundrygothic_bold"
-        android:onClick="moveLoginButton"
         android:text="로그인"
-        android:textColor="#000000"
+        android:textColor="#7E5D08"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:strokeColor="#000000"
-        android:background="@drawable/btn_bg_ex"
-    />
+        android:onClick="moveLoginButton"
+        />
 
     <Button
         android:id="@+id/Join"
@@ -62,16 +58,15 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
+        android:backgroundTint="#F7F5DB"
         android:fontFamily="@font/laundrygothic_bold"
         android:onClick="moveCertificateButton"
         android:text="회원가입"
-        android:textColor="#000000"
+        android:textColor="#7E5D08"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Login"
-        android:background="@drawable/btn_bg_ex"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/Login" />
 
     <TextView
         android:id="@+id/textView20"
@@ -79,7 +74,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poetsenone_regular"
         android:text="Let's EAT!"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
