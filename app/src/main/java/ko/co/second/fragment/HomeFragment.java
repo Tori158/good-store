@@ -1,4 +1,4 @@
-package ko.co.second;
+package ko.co.second.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,12 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import ko.co.second.celebrity.JyangActivity;
+import ko.co.second.celebrity.PungjaActivity;
+import ko.co.second.R;
+import ko.co.second.celebrity.SangmuActivity;
+import ko.co.second.celebrity.SungsiActivity;
 
 public class HomeFragment extends Fragment {
 

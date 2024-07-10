@@ -1,4 +1,4 @@
-package ko.co.second;
+package ko.co.second.map;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -22,6 +22,8 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 
 import java.util.List;
+
+import ko.co.second.R;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static final String TAG = "MapFragment";

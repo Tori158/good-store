@@ -1,11 +1,12 @@
-package ko.co.second;
+package ko.co.second.login;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.ActionBar;
-import com.google.firebase.auth.FirebaseAuth;
+
+import ko.co.second.R;
 
 public class MainActivity extends AppCompatActivity {
 

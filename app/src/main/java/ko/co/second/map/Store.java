@@ -1,4 +1,4 @@
-package ko.co.second;
+package ko.co.second.map;
 
 import com.naver.maps.geometry.LatLng;
 

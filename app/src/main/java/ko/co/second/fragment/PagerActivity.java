@@ -1,4 +1,4 @@
-package ko.co.second;
+package ko.co.second.fragment;
 
 import android.os.Bundle;
 import android.view.Window;
@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import java.util.HashMap;
 import java.util.Map;
 import ko.co.second.databinding.ActivityPagerBinding;
+import ko.co.second.map.MapFragment;
 
 public class PagerActivity extends AppCompatActivity {
 

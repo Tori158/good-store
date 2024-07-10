@@ -20,16 +20,16 @@
         android:theme="@style/Theme.Second"
         tools:targetApi="31">
         <activity
-            android:name=".SungsiActivity"
+            android:name=".celebrity.SungsiActivity"
             android:exported="false" />
         <activity
-            android:name=".PungjaActivity"
+            android:name=".celebrity.PungjaActivity"
             android:exported="false" />
         <activity
-            android:name=".SangmuActivity"
+            android:name=".celebrity.SangmuActivity"
             android:exported="false" />
         <activity
-            android:name=".JyangActivity"
+            android:name=".celebrity.JyangActivity"
             android:exported="false" />
 
         <meta-data
@@ -37,19 +37,19 @@
             android:value="r3iwrgyyxq" />
 
         <activity
-            android:name=".FindPwd"
+            android:name=".login.FindPwd"
             android:exported="false" />
         <activity
-            android:name=".FindID"
+            android:name=".login.FindID"
             android:exported="false" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".login.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".login.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +57,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PagerActivity" />
+        <activity android:name=".fragment.PagerActivity" />
     </application>
 
 </manifest>

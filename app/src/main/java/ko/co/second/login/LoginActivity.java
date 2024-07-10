@@ -1,4 +1,4 @@
-package ko.co.second;
+package ko.co.second.login;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
+
+import ko.co.second.fragment.PagerActivity;
+import ko.co.second.R;
 
 public class LoginActivity extends AppCompatActivity {
 

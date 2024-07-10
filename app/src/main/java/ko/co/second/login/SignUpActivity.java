@@ -1,8 +1,10 @@
-package ko.co.second;
+package ko.co.second.login;
 
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import ko.co.second.R;
 
 public class SignUpActivity extends AppCompatActivity {
 

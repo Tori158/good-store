@@ -1,4 +1,4 @@
-package ko.co.second;
+package ko.co.second.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,8 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
+
+import ko.co.second.R;
 
 public class MyInfoFragment extends Fragment {
 

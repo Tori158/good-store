@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DAB001"
-    tools:context=".FindPwd">
+    tools:context=".login.FindPwd">
 
     <ImageView
         android:id="@+id/imageView9"
