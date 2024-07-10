@@ -1,6 +1,7 @@
 package ko.co.second.map;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -94,11 +95,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     break;
 
             }
-            marker.setWidth(100); // 마커의 너비 설정
-            marker.setHeight(100); // 마커의 높이 설정
+            marker.setWidth(150); // 마커의 너비 설정
+            marker.setHeight(150); // 마커의 높이 설정
             marker.setPosition(store.getLocation());
             marker.setCaptionText(store.getStoreName()); // 가게 이름 표시
             marker.setMap(mNaverMap);
+
+            marker.setOnClickListener(overlay -> {
+                Intent intent = new Intent(getActivity(), MapInfoActivity.class);
+                startActivity(intent);
+                return true; // 클릭 이벤트 소비
+            });
         }
     }
 
@@ -114,4 +121,3 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 }
-//MapView를 네이버 지도 SDK의 MapFragment로 변경해서 생명주기 삭제
