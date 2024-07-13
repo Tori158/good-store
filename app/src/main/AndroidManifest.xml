@@ -24,16 +24,16 @@
             android:exported="false" />
         <activity
             android:name=".celebrity.SungsiActivity"
-            android:exported="false" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".celebrity.PungjaActivity"
-            android:exported="false" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".celebrity.SangmuActivity"
-            android:exported="false" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".celebrity.JyangActivity"
-            android:exported="false" />
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"

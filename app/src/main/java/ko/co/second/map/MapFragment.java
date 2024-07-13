@@ -13,17 +13,14 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.util.FusedLocationSource;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
-
+import java.util.Arrays;
 import java.util.List;
-
 import ko.co.second.R;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -45,7 +42,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.frg_map, container, false);
 
         // 기존 MapView를 네이버 지도 SDK의 MapFragment로 변경
@@ -75,41 +71,45 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void setupMarkers() {
-        List<Store> stores = storeManager.getStores();
-        for (Store store : stores) {
-            Marker marker = new Marker();
-            // youtubeName에 따라 다른 마커 이미지 변경
-            switch (store.getYoutubeName()) {
-                case "성시경":
-                    marker.setIcon(OverlayImage.fromResource(R.drawable.marker_sung_si_kyung));
-                    break;
-                case "풍자":
-                    marker.setIcon(OverlayImage.fromResource(R.drawable.marker_pungja));
-                    break;
-                // 다른 youtubeName에 대한 설정 추가
-                case "쯔양":
-                    marker.setIcon(OverlayImage.fromResource(R.drawable.marker_tzuyang));
-                    break;
-                case "맛상무":
-                    marker.setIcon(OverlayImage.fromResource(R.drawable.marker_matsangmu));
-                    break;
+        // 유튜버 이름 목록
+        List<String> youtuberNames = Arrays.asList("성시경", "풍자", "쯔양", "맛상무");
 
+        for (String youtuberName : youtuberNames) {
+            List<Store> stores = storeManager.getStoresByYoutubeName(youtuberName);
+            for (Store store : stores) {
+                Marker marker = new Marker();
+                // youtubeName에 따라 다른 마커 이미지 변경
+                switch (store.getYoutubeName()) {
+                    case "성시경":
+                        marker.setIcon(OverlayImage.fromResource(R.drawable.marker_sung_si_kyung));
+                        break;
+                    case "풍자":
+                        marker.setIcon(OverlayImage.fromResource(R.drawable.marker_pungja));
+                        break;
+                    case "쯔양":
+                        marker.setIcon(OverlayImage.fromResource(R.drawable.marker_tzuyang));
+                        break;
+                    case "맛상무":
+                        marker.setIcon(OverlayImage.fromResource(R.drawable.marker_matsangmu));
+                        break;
+                }
+                marker.setWidth(150); // 마커의 너비 설정
+                marker.setHeight(150); // 마커의 높이 설정
+                marker.setPosition(store.getLocation());
+                marker.setCaptionText(store.getStoreName()); // 가게 이름 표시
+                marker.setMap(mNaverMap);
+
+                marker.setOnClickListener(overlay -> {
+                    Intent intent = new Intent(getActivity(), MapInfoActivity.class);
+                    startActivity(intent);
+                    return true; // 클릭 이벤트 소비
+                });
             }
-            marker.setWidth(150); // 마커의 너비 설정
-            marker.setHeight(150); // 마커의 높이 설정
-            marker.setPosition(store.getLocation());
-            marker.setCaptionText(store.getStoreName()); // 가게 이름 표시
-            marker.setMap(mNaverMap);
-
-            marker.setOnClickListener(overlay -> {
-                Intent intent = new Intent(getActivity(), MapInfoActivity.class);
-                startActivity(intent);
-                return true; // 클릭 이벤트 소비
-            });
         }
     }
 
     //권한확인
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_REQUEST_CODE) {
