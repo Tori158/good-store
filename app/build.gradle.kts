@@ -65,4 +65,9 @@ dependencies {
     // 하단바 Navigation
     implementation("androidx.navigation:navigation-fragment:2.5.3")
     implementation("androidx.navigation:navigation-ui:2.5.3")
+
+    //유튜브
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:VERSION_NUMBER")
+    //
 }
