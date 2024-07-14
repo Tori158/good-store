@@ -101,6 +101,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                 marker.setOnClickListener(overlay -> {
                     Intent intent = new Intent(getActivity(), MapInfoActivity.class);
+                    intent.putExtra("YOUTUBE_LINK", store.getYoutubeLink()); // 유튜브 링크 추가
                     startActivity(intent);
                     return true; // 클릭 이벤트 소비
                 });
