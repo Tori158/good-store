@@ -56,6 +56,7 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="r3iwrgyyxq" />
 
+        <!-- 로그인 및 메인 activity들 -->
         <activity
             android:name=".login.FindPwd"
             android:exported="false" />
@@ -73,11 +74,13 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 추가 activity -->
         <activity android:name=".fragment.PagerActivity" />
+
     </application>
 
 </manifest>
