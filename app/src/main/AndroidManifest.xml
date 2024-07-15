@@ -18,12 +18,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Second"
         tools:targetApi="31">
+
+        <activity
+            android:name=".Review.WriteReview"
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".mypage.Changing_information"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mypage.My_Review"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mypage.Announcement"
             android:theme="@style/AppTheme.NoActionBar" />
