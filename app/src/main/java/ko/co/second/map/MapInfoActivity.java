@@ -1,40 +1,71 @@
 package ko.co.second.map;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.view.View;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ko.co.second.R;
+import ko.co.second.Review.WriteReview;
+import ko.co.second.Review.Review_data; // Review_data 클래스 임포트
 
 public class MapInfoActivity extends AppCompatActivity {
+
+    private FirebaseFirestore db; // Firestore 객체 선언
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_info);
 
-        // 레이아웃에서 YouTubePlayerView를 찾습니다.
-        YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_view);
+        // Firestore 객체 초기화
+        db = FirebaseFirestore.getInstance();
 
-        // 생명주기와 함께 YouTubePlayerView를 관리
-        getLifecycle().addObserver(youTubePlayerView);
-
-        // Intent로부터 유튜브 링크를 가져옵니다.
+        // Intent에서 데이터를 받아옵니다.
         String youtubeLink = getIntent().getStringExtra("YOUTUBE_LINK");
+        String storeName = getIntent().getStringExtra("STORE_NAME");
+        String phoneNumber = getIntent().getStringExtra("PHONE_NUMBER");
+        String address = getIntent().getStringExtra("ADDRESS");
 
         // YouTubePlayerView 초기화
+        YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_view);
+        getLifecycle().addObserver(youTubePlayerView);
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(YouTubePlayer youTubePlayer) {
-                youTubePlayer.loadVideo(youtubeLink, 0); //0초부터 시작한다는 뜻
+                youTubePlayer.loadVideo(youtubeLink, 0); // 유튜브 링크 재생
             }
         });
+
+        // TextView에 가게 정보 설정
+        TextView storeNameTextView = findViewById(R.id.celebrityStoreName);
+        TextView phoneNumberTextView = findViewById(R.id.celebrityStoreNumber);
+        TextView storeAddressTextView = findViewById(R.id.celebrityStoreAddress);
+
+        storeNameTextView.setText(storeName);
+        phoneNumberTextView.setText(phoneNumber);
+        storeAddressTextView.setText(address);
 
         // 시스템 바의 패딩을 설정합니다.
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -48,5 +79,15 @@ public class MapInfoActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        // 리뷰 작성 버튼 설정
+        Button makeReviewButton = findViewById(R.id.makeReviewButton);
+        makeReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapInfoActivity.this, WriteReview.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -4,38 +4,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import java.util.ArrayList;
 import java.util.List;
 import ko.co.second.R;
-import ko.co.second.fragment.HomeFragment;
+import ko.co.second.map.MapInfoActivity;
 import ko.co.second.map.Store;
 import ko.co.second.map.StoreManager;
 
 public class JyangActivity extends AppCompatActivity {
+
+    private List<Store> tzuyangStores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jyang);
 
-        //앱 타이틀 설정
+        // 앱 타이틀 설정
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText("쯔양");
 
         // StoreManager 초기화 및 데이터 가져오기
         StoreManager storeManager = new StoreManager();
-        List<Store> tzuyangStores = storeManager.getStoresByYoutubeName("쯔양");
+        tzuyangStores = storeManager.getStoresByYoutubeName("쯔양");
 
         // storeName만 추출하여 리스트에 담기
         List<String> storeNames = new ArrayList<>();
@@ -48,6 +47,20 @@ public class JyangActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, storeNames);
         list.setAdapter(adapter);
+
+        // 리스트 항목 클릭 시 MapInfoActivity로 이동
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Store selectedStore = tzuyangStores.get(position);
+                Intent intent = new Intent(JyangActivity.this, MapInfoActivity.class);
+                intent.putExtra("STORE_NAME", selectedStore.getStoreName());
+                intent.putExtra("PHONE_NUMBER", selectedStore.getPhoneNumber());
+                intent.putExtra("ADDRESS", selectedStore.getAddress());
+                intent.putExtra("YOUTUBE_LINK", selectedStore.getYoutubeLink());
+                startActivity(intent);
+            }
+        });
 
         // 화면 이동 설정
         View mainView = findViewById(R.id.main);

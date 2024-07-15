@@ -1,8 +1,10 @@
 package ko.co.second.celebrity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ko.co.second.R;
+import ko.co.second.map.MapInfoActivity;
 import ko.co.second.map.Store;
 import ko.co.second.map.StoreManager;
 
@@ -47,6 +50,20 @@ public class SangmuActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, storeNames);
         list.setAdapter(adapter);
+
+        // 리스트 항목 클릭 시 MapInfoActivity로 이동
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Store selectedStore = matsangmuStores.get(position);
+                Intent intent = new Intent(SangmuActivity.this, MapInfoActivity.class);
+                intent.putExtra("STORE_NAME", selectedStore.getStoreName());
+                intent.putExtra("PHONE_NUMBER", selectedStore.getPhoneNumber());
+                intent.putExtra("ADDRESS", selectedStore.getAddress());
+                intent.putExtra("YOUTUBE_LINK", selectedStore.getYoutubeLink());
+                startActivity(intent);
+            }
+        });
 
         // 화면 이동 설정
         View mainView = findViewById(R.id.main);

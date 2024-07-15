@@ -3,13 +3,13 @@ package ko.co.second.map;
 import com.naver.maps.geometry.LatLng;
 
 public class Store {
-    private String youtubeName; //유튜브 이름
-    private String storeName; //가게 이름
-    private LatLng location; //위도,경도
+    private String youtubeName; // 유튜브 이름
+    private String storeName; // 가게 이름
+    private LatLng location; // 위치 (위도, 경도)
     private String address; // 주소
-    private String phoneNumber; //전화번호
-    private String youtubeLink; //유튜브 링크
-    private String naverMapLink; // 네이버 링크
+    private String phoneNumber; // 전화번호
+    private String youtubeLink; // 유튜브 링크
+    private String naverMapLink; // 네이버 맵 링크
 
     // Constructor
     public Store(String youtubeName, String storeName, LatLng location, String address, String phoneNumber, String youtubeLink, String naverMapLink) {

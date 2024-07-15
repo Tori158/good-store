@@ -24,7 +24,6 @@ import java.util.List;
 import ko.co.second.R;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
-    private static final String TAG = "MapFragment";
     private static final int PERMISSION_REQUEST_CODE = 100;
     private static final String[] PERMISSIONS = {
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -101,7 +100,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
                 marker.setOnClickListener(overlay -> {
                     Intent intent = new Intent(getActivity(), MapInfoActivity.class);
-                    intent.putExtra("YOUTUBE_LINK", store.getYoutubeLink()); // 유튜브 링크 추가
+                    intent.putExtra("STORE_NAME", store.getStoreName());
+                    intent.putExtra("PHONE_NUMBER", store.getPhoneNumber());
+                    intent.putExtra("ADDRESS", store.getAddress());
+                    intent.putExtra("YOUTUBE_LINK", store.getYoutubeLink());
                     startActivity(intent);
                     return true; // 클릭 이벤트 소비
                 });
