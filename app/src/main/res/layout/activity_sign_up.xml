@@ -89,7 +89,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/rectangular"
         android:ems="10"
-        android:hint="영문,숫자 조합 8 15자"
+        android:hint="영문,숫자 조합 8~15자"
         android:inputType="textPassword"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
