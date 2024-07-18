@@ -52,17 +52,6 @@ public class WriteReview extends AppCompatActivity {
             actionBar.hide(); // ActionBar 숨기기
         }
 
-        //취소버튼 눌렀을 경우
-        Button moveRemoveButton = findViewById(R.id.removeButton);
-        moveRemoveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 이전의 WriteReview 액티비티로 돌아가도록 함
-                Intent intent = new Intent(WriteReview.this, MapInfoActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 이전 액티비티를 재사용하도록 설정
-                startActivity(intent);
-            }
-        });
 
         //등록 버튼 눌렀을 경우
         Button registerButton = findViewById(R.id.okButton);
