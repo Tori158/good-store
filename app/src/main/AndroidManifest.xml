@@ -18,12 +18,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Second"
         tools:targetApi="31">
-
+        <activity
+            android:name=".mypage.HeartListAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".mypage.FavoriteItem"
+            android:exported="false" />
         <activity
             android:name=".Review.WriteReview"
             android:exported="false"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".mypage.Changing_information"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -54,9 +58,7 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="r3iwrgyyxq" />
-
-        <!-- 로그인 및 메인 activity들 -->
+            android:value="r3iwrgyyxq" /> <!-- 로그인 및 메인 activity들 -->
         <activity
             android:name=".login.FindPwd"
             android:exported="false" />
@@ -74,13 +76,11 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- 추가 activity -->
+        </activity> <!-- 추가 activity -->
         <activity android:name=".fragment.PagerActivity" />
-
     </application>
 
 </manifest>
