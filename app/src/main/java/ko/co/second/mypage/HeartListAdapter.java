@@ -1,26 +1,60 @@
 package ko.co.second.mypage;
 
-import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 import ko.co.second.R;
 
-public class HeartListAdapter extends AppCompatActivity {
+public class HeartListAdapter extends RecyclerView.Adapter<HeartListAdapter.ViewHolder> {
+
+    private List<FavoriteItem> favoriteList;
+    private HeartList heartListActivity;
+
+    public HeartListAdapter(List<FavoriteItem> favoriteList, HeartList heartListActivity) {
+        this.favoriteList = favoriteList;
+        this.heartListActivity = heartListActivity;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_favorite, parent, false);
+        return new ViewHolder(view);
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_heart_list_adapter);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        FavoriteItem item = favoriteList.get(position);
+        holder.storeNameTextView.setText(item.getStoreName());
+        holder.addressTextView.setText(item.getAddress());
+        holder.phoneNumberTextView.setText(item.getPhoneNumber());
+
+        holder.itemView.setOnClickListener(v -> heartListActivity.startMapInfoActivity(item));
+    }
+
+    @Override
+    public int getItemCount() {
+        return favoriteList.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView storeNameTextView;
+        TextView addressTextView;
+        TextView phoneNumberTextView;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            storeNameTextView = itemView.findViewById(R.id.storeNameTextView);
+            addressTextView = itemView.findViewById(R.id.addressTextView);
+            phoneNumberTextView = itemView.findViewById(R.id.phoneNumberTextView);
+        }
     }
 }
