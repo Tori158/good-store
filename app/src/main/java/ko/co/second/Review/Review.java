@@ -1,0 +1,51 @@
+package ko.co.second.Review;
+
+public class Review {
+    private String userEmail;
+    private String review;
+    private String timestamp;
+    private float rating;
+
+    public Review() {
+        // Default constructor required for calls to DataSnapshot.getValue(Review.class)
+    }
+
+    public Review(String userEmail, String review, String timestamp, float rating) {
+        this.userEmail = userEmail;
+        this.review = review;
+        this.timestamp = timestamp;
+        this.rating = rating;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+}
