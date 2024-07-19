@@ -6,10 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import ko.co.second.R;
 import ko.co.second.mypage.Announcement;
@@ -18,6 +22,9 @@ import ko.co.second.mypage.HeartList;
 import ko.co.second.mypage.My_Review;
 
 public class MyInfoFragment extends Fragment {
+
+    private FirebaseAuth mAuth;
+    private TextView usernameTextView;
 
     public static MyInfoFragment newInstance() {
         MyInfoFragment fp = new MyInfoFragment();
@@ -32,7 +39,17 @@ public class MyInfoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frg_info, container, false);
 
+
+        mAuth = FirebaseAuth.getInstance();
+
+
+        usernameTextView = view.findViewById(R.id.tvName);
         Button moveHeartButton = view.findViewById(R.id.button);
+        Button moveAnnouncementButton = view.findViewById(R.id.button2);
+        Button moveChangingButton = view.findViewById(R.id.button3);
+        Button moveMyReviewButton = view.findViewById(R.id.button6);
+
+
         moveHeartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +58,6 @@ public class MyInfoFragment extends Fragment {
             }
         });
 
-        Button moveAnnouncementButton = view.findViewById(R.id.button2);
         moveAnnouncementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +66,6 @@ public class MyInfoFragment extends Fragment {
             }
         });
 
-        Button moveChangingButton = view.findViewById(R.id.button3);
         moveChangingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +74,6 @@ public class MyInfoFragment extends Fragment {
             }
         });
 
-        Button moveMyReviewButton = view.findViewById(R.id.button6);
         moveMyReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +82,18 @@ public class MyInfoFragment extends Fragment {
             }
         });
 
-        return view; // 수정된 부분: 인플레이트한 view를 반환
-    }
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null && currentUser.getEmail() != null) {
+
+            String username = currentUser.getEmail().split("@")[0];
+
+            usernameTextView.setText(username + "님");
+        } else {
+
+            usernameTextView.setText("사용자 정보를 불러올 수 없습니다.");
+        }
+
+        return view;
+    }
 }
