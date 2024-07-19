@@ -14,20 +14,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FieldValue;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import ko.co.second.R;
-import ko.co.second.map.MapInfoActivity;
 
 public class WriteReview extends AppCompatActivity {
 
     private FirebaseFirestore db; // Firestore 객체 선언
     private FirebaseAuth mAuth; // Firebase Authentication 객체 선언
+    private String storeName; // storeName을 저장할 변수
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
