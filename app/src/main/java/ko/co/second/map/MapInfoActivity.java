@@ -14,19 +14,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ko.co.second.R;
+import ko.co.second.Review.Review;
+import ko.co.second.Review.Review_adapter;
 import ko.co.second.Review.WriteReview;
 
 public class MapInfoActivity extends AppCompatActivity {
@@ -35,7 +43,10 @@ public class MapInfoActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private ToggleButton favoriteButton;
-    private boolean isFavorite; // 가게별 상태를 저장할 변수
+    private boolean isFavorite;
+    private Review_adapter reviewAdapter;
+    private List<Review> reviewList = new ArrayList<>();
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +61,7 @@ public class MapInfoActivity extends AppCompatActivity {
         String phoneNumber = getIntent().getStringExtra("PHONE_NUMBER");
         String address = getIntent().getStringExtra("ADDRESS");
 
+        // 디버깅 로그 추가
         Log.d(TAG, "youtubeLink: " + youtubeLink);
         Log.d(TAG, "storeName: " + storeName);
         Log.d(TAG, "phoneNumber: " + phoneNumber);
@@ -79,12 +91,6 @@ public class MapInfoActivity extends AppCompatActivity {
         phoneNumberTextView.setText(phoneNumber);
         storeAddressTextView.setText(address);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
@@ -101,6 +107,15 @@ public class MapInfoActivity extends AppCompatActivity {
         checkFavoriteStatus(storeName);
 
         favoriteButton.setOnClickListener(v -> handleFavoriteButtonClick(storeName, address, phoneNumber, youtubeLink));
+
+        // 리뷰 RecyclerView 초기화
+        recyclerView = findViewById(R.id.recycler_view); // XML에 추가된 RecyclerView 참조
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        reviewAdapter = new Review_adapter(reviewList); // 어댑터 인스턴스 생성
+        recyclerView.setAdapter(reviewAdapter);
+
+        // 리뷰 로드
+        loadReviews(storeName);
     }
 
     private void checkFavoriteStatus(String storeName) {
@@ -137,15 +152,15 @@ public class MapInfoActivity extends AppCompatActivity {
             favorite.put("storeName", storeName);
             favorite.put("address", address);
             favorite.put("phoneNumber", phoneNumber);
-            favorite.put("youtubeLink", youtubeLink); // 유튜브 링크 저장
+            favorite.put("youtubeLink", youtubeLink);
 
             db.collection("Favorites").document(currentUser.getUid() + "_" + storeName).set(favorite)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(MapInfoActivity.this, "찜목록 추가", Toast.LENGTH_SHORT).show();
-                        setResult(RESULT_OK); // 변경이 성공적으로 완료되었음을 알림
+                        setResult(RESULT_OK);
                     })
                     .addOnFailureListener(e -> {
-                        favoriteButton.setChecked(false); // 실패 시 상태 초기화
+                        favoriteButton.setChecked(false);
                         Toast.makeText(MapInfoActivity.this, "Failed to add to favorites", Toast.LENGTH_SHORT).show();
                     });
         }
@@ -155,13 +170,46 @@ public class MapInfoActivity extends AppCompatActivity {
         if (currentUser != null) {
             db.collection("Favorites").document(currentUser.getUid() + "_" + storeName).delete()
                     .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(MapInfoActivity.this, "찜목록 해제", Toast.LENGTH_SHORT).show();
-                        setResult(RESULT_OK); // 변경이 성공적으로 완료되었음을 알림
+                        Toast.makeText(MapInfoActivity.this, "찜목록에서 제거됨", Toast.LENGTH_SHORT).show();
+                        setResult(RESULT_OK);
                     })
                     .addOnFailureListener(e -> {
-                        favoriteButton.setChecked(true); // 실패 시 상태 초기화
+                        favoriteButton.setChecked(true);
                         Toast.makeText(MapInfoActivity.this, "Failed to remove from favorites", Toast.LENGTH_SHORT).show();
                     });
         }
     }
+
+    private void loadReviews(String storeName) {
+        db.collection("reviews").document(storeName)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (documentSnapshot.exists()) {
+                            // 문서에서 `reviews` 배열을 가져옵니다.
+                            List<Map<String, Object>> reviews = (List<Map<String, Object>>) documentSnapshot.get("reviews");
+                            if (reviews != null) {
+                                reviewList.clear(); // 기존 리스트 초기화
+                                for (Map<String, Object> reviewData : reviews) {
+                                    Review review = new Review();
+                                    review.setUserEmail((String) reviewData.get("userEmail"));
+                                    review.setRating(((Number) reviewData.get("rating")).floatValue());
+                                    review.setReview((String) reviewData.get("review"));
+                                    review.setTimestamp((String) reviewData.get("timestamp"));
+                                    reviewList.add(review);
+                                }
+                                reviewAdapter.notifyDataSetChanged();
+                                Log.d(TAG, "Reviews loaded: " + reviewList.size());
+                            }
+                        } else {
+                            Toast.makeText(MapInfoActivity.this, "리뷰가 없습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(MapInfoActivity.this, "리뷰 로드 실패.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
 }
