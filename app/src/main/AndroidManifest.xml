@@ -19,10 +19,13 @@
         android:theme="@style/Theme.Second"
         tools:targetApi="31">
         <activity
-            android:name=".mypage.HeartListAdapter"
+            android:name=".Review.Review_adapter"
             android:exported="false" />
         <activity
-            android:name=".mypage.FavoriteItem"
+            android:name=".Heart.HeartListAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".Heart.FavoriteItem"
             android:exported="false" />
         <activity
             android:name=".Review.WriteReview"
