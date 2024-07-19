@@ -20,6 +20,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import ko.co.second.Heart.FavoriteItem;
+import ko.co.second.Heart.HeartListAdapter;
 import ko.co.second.R;
 import ko.co.second.map.MapInfoActivity;
 
