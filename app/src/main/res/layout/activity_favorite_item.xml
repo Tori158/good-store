@@ -6,7 +6,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/storeNameTextView"
+        android:id="@+id/ReviewID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
@@ -14,7 +14,7 @@
         android:text="Store Name" />
 
     <TextView
-        android:id="@+id/addressTextView"
+        android:id="@+id/ReviewContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"

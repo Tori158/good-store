@@ -1,4 +1,4 @@
-package ko.co.second.mypage;
+package ko.co.second.Heart;
 
 public class FavoriteItem {
     private String storeName;

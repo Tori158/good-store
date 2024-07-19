@@ -1,4 +1,4 @@
-package ko.co.second.mypage;
+package ko.co.second.Heart;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import ko.co.second.R;
+import ko.co.second.mypage.HeartList;
 
 public class HeartListAdapter extends RecyclerView.Adapter<HeartListAdapter.ViewHolder> {
 
@@ -52,8 +53,8 @@ public class HeartListAdapter extends RecyclerView.Adapter<HeartListAdapter.View
 
         ViewHolder(View itemView) {
             super(itemView);
-            storeNameTextView = itemView.findViewById(R.id.storeNameTextView);
-            addressTextView = itemView.findViewById(R.id.addressTextView);
+            storeNameTextView = itemView.findViewById(R.id.ReviewID);
+            addressTextView = itemView.findViewById(R.id.ReviewContent);
             phoneNumberTextView = itemView.findViewById(R.id.phoneNumberTextView);
         }
     }
