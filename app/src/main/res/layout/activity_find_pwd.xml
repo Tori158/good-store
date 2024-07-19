@@ -69,46 +69,19 @@
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <TextView
-        android:id="@+id/textView17"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="425dp"
-        android:fontFamily="@font/laundrygothic_bold"
-        android:text="이름*"
-        android:textColor="#906E07"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView10"
-        app:layout_constraintTop_toBottomOf="@+id/FindPwdEmailAddress" />
-
-    <EditText
-        android:id="@+id/FindPWDText"
-        android:layout_width="294dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/rectangular"
-        android:ems="10"
-        android:hint="예) 홍길동"
-        android:inputType="text"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-    <TextView
         android:id="@+id/textView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="345dp"
         android:fontFamily="@font/laundrygothic_bold"
-        android:text="비밀번호*"
+        android:text="새 비밀번호*"
         android:textColor="#906E07"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/imageView10"
-        app:layout_constraintTop_toBottomOf="@+id/FindPWDText" />
+        app:layout_constraintTop_toBottomOf="@+id/FindPwdEmailAddress"
+        app:layout_constraintVertical_bias="0.15" />
 
     <EditText
         android:id="@+id/FindPWDPassword1"
@@ -126,11 +99,11 @@
 
     <TextView
         android:id="@+id/textView19"
-        android:layout_width="107dp"
+        android:layout_width="254dp"
         android:layout_height="23dp"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/laundrygothic_bold"
-        android:text="새 비밀번호*"
+        android:text="새 비밀번호* 확인"
         android:textColor="#906E07"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"

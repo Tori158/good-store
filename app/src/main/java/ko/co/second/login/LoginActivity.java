@@ -29,10 +29,19 @@ public class LoginActivity extends AppCompatActivity {
             actionBar.hide(); // ActionBar 숨기기
         }
 
+        Button moveFindIDButton = findViewById(R.id.findId_button);
         Button moveFindPwdButton = findViewById(R.id.findpwd_button);
         Button moveMapButton = findViewById(R.id.start);
         emailEditText = findViewById(R.id.emailAddress);
         passwordEditText = findViewById(R.id.password1);
+
+        moveFindIDButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FindID.class);
+                startActivity(intent);
+            }
+        });
 
         moveFindPwdButton.setOnClickListener(new View.OnClickListener() {
             @Override
