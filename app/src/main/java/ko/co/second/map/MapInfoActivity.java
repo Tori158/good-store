@@ -61,12 +61,6 @@ public class MapInfoActivity extends AppCompatActivity {
         String phoneNumber = getIntent().getStringExtra("PHONE_NUMBER");
         String address = getIntent().getStringExtra("ADDRESS");
 
-        // 디버깅 로그 추가
-        Log.d(TAG, "youtubeLink: " + youtubeLink);
-        Log.d(TAG, "storeName: " + storeName);
-        Log.d(TAG, "phoneNumber: " + phoneNumber);
-        Log.d(TAG, "address: " + address);
-
         if (youtubeLink == null || storeName == null || phoneNumber == null || address == null) {
             Toast.makeText(this, "필수 정보가 누락되었습니다.", Toast.LENGTH_SHORT).show();
             finish();
