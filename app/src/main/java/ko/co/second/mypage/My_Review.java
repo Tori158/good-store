@@ -1,32 +1,83 @@
 package ko.co.second.mypage;
 
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import ko.co.second.R;
+import ko.co.second.Review.Review;
+import ko.co.second.Review.Review_adapter;
 
 public class My_Review extends AppCompatActivity {
+
+    private FirebaseFirestore db;
+    private FirebaseUser currentUser;
+    private RecyclerView myReviewRecyclerView;
+    private Review_adapter reviewAdapter;
+    private List<Review> myReviewList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_my_review);
 
-        //앱 타이틀 설정
-        TextView toolbarTitle = findViewById(R.id.toolbar_MyReview);
-        toolbarTitle.setText("내 리뷰");
+        db = FirebaseFirestore.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        myReviewRecyclerView = findViewById(R.id.my_review_list);
+        myReviewList = new ArrayList<>();
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        myReviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        reviewAdapter = new Review_adapter(myReviewList);
+        myReviewRecyclerView.setAdapter(reviewAdapter);
+
+        if (currentUser != null) {
+            loadMyReviews(currentUser.getEmail()); // 이메일로 필터링
+        } else {
+            Toast.makeText(this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    private void loadMyReviews(String userEmail) {
+        db.collection("reviews")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        myReviewList.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            List<Map<String, Object>> reviews = (List<Map<String, Object>>) document.get("reviews");
+                            if (reviews != null) {
+                                for (Map<String, Object> reviewData : reviews) {
+                                    String email = (String) reviewData.get("userEmail");
+                                    if (userEmail.equals(email)) {
+                                        Review review = new Review();
+                                        review.setUserEmail(email);
+                                        review.setRating(Float.parseFloat(reviewData.get("rating").toString()));
+                                        review.setReview((String) reviewData.get("review"));
+                                        review.setTimestamp((String) reviewData.get("timestamp"));
+                                        myReviewList.add(review);
+                                    }
+                                }
+                            }
+                        }
+                        reviewAdapter.notifyDataSetChanged();
+                    } else {
+                        Log.e("My_Review", "Error getting documents: ", task.getException());
+                        Toast.makeText(My_Review.this, "리뷰 로드 실패.", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
