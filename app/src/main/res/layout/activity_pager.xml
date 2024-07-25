@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/tv1"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="61dp"
+                android:layout_marginEnd="57dp"
                 android:layout_marginBottom="13dp"
                 android:src="@drawable/vector" />
 
@@ -44,8 +44,10 @@
                 android:id="@+id/tv1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_marginEnd="58dp"
+                android:layout_marginBottom="-1dp"
                 android:text="검색"
                 android:textColor="@color/black"
                 android:textSize="12sp"
