@@ -32,6 +32,14 @@ public class JyangActivity extends AppCompatActivity {
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText("쯔양");
 
+        // 뒤로가기 버튼 설정
+        ImageButton backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // 현재 액티비티 종료
+            }
+        });
         // StoreManager 초기화 및 데이터 가져오기
         StoreManager storeManager = new StoreManager();
         tzuyangStores = storeManager.getStoresByYoutubeName("쯔양");

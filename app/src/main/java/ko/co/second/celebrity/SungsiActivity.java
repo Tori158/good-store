@@ -31,9 +31,18 @@ public class SungsiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sungsi);
 
-        //앱 타이틀 설정
+        // 앱 타이틀 설정
         TextView toolbarTitle = findViewById(R.id.toolbar_title4);
         toolbarTitle.setText("성시경");
+
+        // 뒤로가기 버튼 설정
+        ImageButton backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // 현재 액티비티 종료
+            }
+        });
 
         // StoreManager 초기화 및 데이터 가져오기
         StoreManager storeManager = new StoreManager();

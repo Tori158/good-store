@@ -31,10 +31,18 @@ public class SangmuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sangmu);
 
-        //앱 타이틀 설정
+        // 앱 타이틀 설정
         TextView toolbarTitle = findViewById(R.id.toolbar_title3);
         toolbarTitle.setText("맛상무");
 
+        // 뒤로가기 버튼 설정
+        ImageButton backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // 현재 액티비티 종료
+            }
+        });
         // StoreManager 초기화 및 데이터 가져오기
         StoreManager storeManager = new StoreManager();
         List<Store> matsangmuStores = storeManager.getStoresByYoutubeName("맛상무");
