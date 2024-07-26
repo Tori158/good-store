@@ -34,6 +34,13 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="검색어를 입력하시오"
+        app:iconifiedByDefault="false" />
+
     <ListView
         android:id="@+id/ListView3"
         android:layout_width="match_parent"

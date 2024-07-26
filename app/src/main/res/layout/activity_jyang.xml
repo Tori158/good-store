@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -33,12 +34,16 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="검색어를 입력하시오"
+        app:iconifiedByDefault="false" />
+
     <ListView
         android:id="@+id/ListView1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-
-    </ListView>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
