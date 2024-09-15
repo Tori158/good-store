@@ -8,37 +8,37 @@
     android:contentDescription="풍자버튼"
     android:orientation="vertical">
 
+    <ImageButton
+        android:id="@+id/logoutButton"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="right"
+        android:background="#FFFFFF"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/logout" />
 
-    <TextView
-        android:id="@+id/titlehome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="14dp"
-        android:fontFamily="@font/poetsenone_regular"
-        android:text="MAKET"
-        android:textColor="#906E07"
-        android:textSize="28sp" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:focusable="true"
-        android:padding="20dp"
-        app:iconifiedByDefault="false"
-        app:layout_constraintBottom_toTopOf="@id/titlehome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1"
-        app:queryHint="검색어를 입력하시오"
-        android:layout_marginBottom="10dp"
-        >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/titlehome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/poetsenone_regular"
+            android:text="MAKET"
+            android:gravity="center"
+            android:textColor="#906E07"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
 
-    </androidx.appcompat.widget.SearchView>
 
     <TextView
         android:id="@+id/textView21"
