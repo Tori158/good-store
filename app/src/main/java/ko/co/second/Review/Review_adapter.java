@@ -17,8 +17,9 @@ public class Review_adapter extends RecyclerView.Adapter<Review_adapter.ReviewVi
 
     private List<Review> reviewList;
 
+    // ViewHolder 클래스에 storeNameID 추가
     public static class ReviewViewHolder extends RecyclerView.ViewHolder {
-        public TextView userEmail, reviewText, timestamp;
+        public TextView userEmail, reviewText, timestamp, storeNameID;
         public RatingBar ratingBar;
 
         public ReviewViewHolder(@NonNull View itemView) {
@@ -27,9 +28,11 @@ public class Review_adapter extends RecyclerView.Adapter<Review_adapter.ReviewVi
             reviewText = itemView.findViewById(R.id.ReviewContent);
             timestamp = itemView.findViewById(R.id.time);
             ratingBar = itemView.findViewById(R.id.ratingBar2);
+            storeNameID = itemView.findViewById(R.id.storeNameID);  // storeNameID 연결
         }
     }
 
+    // 어댑터 생성자
     public Review_adapter(List<Review> reviews) {
         this.reviewList = reviews;
     }
@@ -48,6 +51,7 @@ public class Review_adapter extends RecyclerView.Adapter<Review_adapter.ReviewVi
         holder.reviewText.setText(currentReview.getReview());
         holder.timestamp.setText(currentReview.getTimestamp());
         holder.ratingBar.setRating(currentReview.getRating());
+        holder.storeNameID.setText(currentReview.getStoreName());  // storeName 설정
     }
 
     @Override
