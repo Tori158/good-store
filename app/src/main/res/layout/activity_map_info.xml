@@ -43,7 +43,6 @@
             android:background="@drawable/button_favorite" />
     </LinearLayout>
 
-
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -99,6 +98,35 @@
             android:textSize="20sp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageViewLink"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/ic_map_link" />
+
+        <TextView
+            android:id="@+id/open_naver_map_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+
+            android:autoLink="web"
+            android:linksClickable="true"
+            android:textSize="20sp"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -127,12 +155,11 @@
             android:backgroundTint="#FFFFFF"
             android:text="✏️ 리뷰달기"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

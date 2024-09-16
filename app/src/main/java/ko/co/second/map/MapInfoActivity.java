@@ -1,41 +1,31 @@
 package ko.co.second.map;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import ko.co.second.R;
 import ko.co.second.Review.Review;
 import ko.co.second.Review.Review_adapter;
-import ko.co.second.Review.WriteReview;
+import android.util.Log;
 
 public class MapInfoActivity extends AppCompatActivity {
 
@@ -60,8 +50,9 @@ public class MapInfoActivity extends AppCompatActivity {
         String storeName = getIntent().getStringExtra("STORE_NAME");
         String phoneNumber = getIntent().getStringExtra("PHONE_NUMBER");
         String address = getIntent().getStringExtra("ADDRESS");
+        String naverMapLink = getIntent().getStringExtra("NAVER_MAP_LINK"); // 네이버 지도 링크 받기
 
-        if (youtubeLink == null || storeName == null || phoneNumber == null || address == null) {
+        if (youtubeLink == null || storeName == null || phoneNumber == null || address == null || naverMapLink==null) {
             Toast.makeText(this, "필수 정보가 누락되었습니다.", Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -77,30 +68,26 @@ public class MapInfoActivity extends AppCompatActivity {
             }
         });
 
+        // UI 요소 설정
         TextView storeNameTextView = findViewById(R.id.celebrityStoreName);
         TextView phoneNumberTextView = findViewById(R.id.celebrityStoreNumber);
         TextView storeAddressTextView = findViewById(R.id.celebrityStoreAddress);
+        TextView naverMapTextView = findViewById(R.id.open_naver_map_button); // 네이버 지도 링크 TextView 초기화
 
         storeNameTextView.setText(storeName);
         phoneNumberTextView.setText(phoneNumber);
         storeAddressTextView.setText(address);
+        naverMapTextView.setText(naverMapLink); // 네이버 지도 링크 설정
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
 
-        Button makeReviewButton = findViewById(R.id.makeReviewButton);
-        makeReviewButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MapInfoActivity.this, WriteReview.class);
-            intent.putExtra("storeName", storeName); // storeName을 전달
-            startActivity(intent);
-        });
-
         favoriteButton = findViewById(R.id.toggle_button);
         checkFavoriteStatus(storeName);
 
-        favoriteButton.setOnClickListener(v -> handleFavoriteButtonClick(storeName, address, phoneNumber, youtubeLink));
+        favoriteButton.setOnClickListener(v -> handleFavoriteButtonClick(storeName, address, phoneNumber, youtubeLink, naverMapLink));
 
         // 리뷰 RecyclerView 초기화
         recyclerView = findViewById(R.id.recycler_view); // XML에 추가된 RecyclerView 참조
@@ -131,15 +118,15 @@ public class MapInfoActivity extends AppCompatActivity {
         }
     }
 
-    private void handleFavoriteButtonClick(String storeName, String address, String phoneNumber, String youtubeLink) {
+    private void handleFavoriteButtonClick(String storeName, String address, String phoneNumber, String youtubeLink, String naverMapLink) {
         if (favoriteButton.isChecked()) {
-            addToFavorites(storeName, address, phoneNumber, youtubeLink);
+            addToFavorites(storeName, address, phoneNumber, youtubeLink, naverMapLink);
         } else {
             removeFromFavorites(storeName);
         }
     }
 
-    private void addToFavorites(String storeName, String address, String phoneNumber, String youtubeLink) {
+    private void addToFavorites(String storeName, String address, String phoneNumber, String youtubeLink, String naverMapLink) {
         if (currentUser != null) {
             Map<String, Object> favorite = new HashMap<>();
             favorite.put("userId", currentUser.getUid());
@@ -147,6 +134,7 @@ public class MapInfoActivity extends AppCompatActivity {
             favorite.put("address", address);
             favorite.put("phoneNumber", phoneNumber);
             favorite.put("youtubeLink", youtubeLink);
+            favorite.put("naverMapLink", naverMapLink); // 네이버 맵 링크 추가
 
             db.collection("Favorites").document(currentUser.getUid() + "_" + storeName).set(favorite)
                     .addOnSuccessListener(aVoid -> {
@@ -164,7 +152,7 @@ public class MapInfoActivity extends AppCompatActivity {
         if (currentUser != null) {
             db.collection("Favorites").document(currentUser.getUid() + "_" + storeName).delete()
                     .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(MapInfoActivity.this, "찜목록에서 제거됨", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MapInfoActivity.this, "찜목록 해제", Toast.LENGTH_SHORT).show();
                         setResult(RESULT_OK);
                     })
                     .addOnFailureListener(e -> {
@@ -204,6 +192,4 @@ public class MapInfoActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 }
