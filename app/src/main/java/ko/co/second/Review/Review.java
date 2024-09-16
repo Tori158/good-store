@@ -5,16 +5,18 @@ public class Review {
     private String review;
     private String timestamp;
     private float rating;
+    private String storeName;
 
     public Review() {
         // Default constructor required for calls to DataSnapshot.getValue(Review.class)
     }
 
-    public Review(String userEmail, String review, String timestamp, float rating) {
+    public Review(String userEmail, String review, String timestamp, float rating, String storeName) {
         this.userEmail = userEmail;
         this.review = review;
         this.timestamp = timestamp;
         this.rating = rating;
+        this.storeName = storeName;  // storeName 초기화
     }
 
     public String getUserEmail() {
@@ -47,5 +49,13 @@ public class Review {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 }
