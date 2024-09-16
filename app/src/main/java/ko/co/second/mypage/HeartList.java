@@ -103,6 +103,7 @@ public class HeartList extends AppCompatActivity {
         intent.putExtra("ADDRESS", item.getAddress());
         intent.putExtra("PHONE_NUMBER", item.getPhoneNumber());
         intent.putExtra("YOUTUBE_LINK", item.getYoutubeLink() != null ? item.getYoutubeLink() : ""); // 유튜브 링크 전달
+        intent.putExtra("NAVER_MAP_LINK", item.getNaverMapLink());
         startActivityForResult(intent, REQUEST_CODE);
     }
 }

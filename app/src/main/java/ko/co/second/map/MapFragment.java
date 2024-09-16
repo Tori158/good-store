@@ -104,6 +104,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     intent.putExtra("PHONE_NUMBER", store.getPhoneNumber());
                     intent.putExtra("ADDRESS", store.getAddress());
                     intent.putExtra("YOUTUBE_LINK", store.getYoutubeLink());
+                    intent.putExtra("NAVER_MAP_LINK", store.getNaverMapLink());
+
                     startActivity(intent);
                     return true; // 클릭 이벤트 소비
                 });
