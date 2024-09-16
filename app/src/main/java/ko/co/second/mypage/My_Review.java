@@ -58,6 +58,7 @@ public class My_Review extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         myReviewList.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
+                            String storeName = document.getId(); // 현재 문서 ID를 가게 이름으로 사용
                             List<Map<String, Object>> reviews = (List<Map<String, Object>>) document.get("reviews");
                             if (reviews != null) {
                                 for (Map<String, Object> reviewData : reviews) {
@@ -68,6 +69,7 @@ public class My_Review extends AppCompatActivity {
                                         review.setRating(Float.parseFloat(reviewData.get("rating").toString()));
                                         review.setReview((String) reviewData.get("review"));
                                         review.setTimestamp((String) reviewData.get("timestamp"));
+                                        review.setStoreName(storeName); // 가게 이름 설정
                                         myReviewList.add(review);
                                     }
                                 }
