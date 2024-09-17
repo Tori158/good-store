@@ -104,16 +104,4 @@
         android:textColor="#000000"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:background="#FFFFFFFF"
-        android:fontFamily="@font/poetsenone_regular"
-        android:text="  👤 정보 수정"
-        android:textAlignment="viewStart"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
 </LinearLayout>

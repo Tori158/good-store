@@ -46,7 +46,6 @@ public class MyInfoFragment extends Fragment {
         usernameTextView = view.findViewById(R.id.tvName);
         Button moveHeartButton = view.findViewById(R.id.button);
         Button moveAnnouncementButton = view.findViewById(R.id.button2);
-        Button moveChangingButton = view.findViewById(R.id.button3);
         Button moveMyReviewButton = view.findViewById(R.id.button6);
 
 
@@ -62,14 +61,6 @@ public class MyInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Announcement.class);
-                startActivity(intent);
-            }
-        });
-
-        moveChangingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Changing_information.class);
                 startActivity(intent);
             }
         });
