@@ -24,6 +24,7 @@ import ko.co.second.Heart.FavoriteItem;
 import ko.co.second.Heart.HeartListAdapter;
 import ko.co.second.R;
 import ko.co.second.map.MapInfoActivity;
+import android.util.Log;
 
 public class HeartList extends AppCompatActivity {
 
@@ -87,6 +88,8 @@ public class HeartList extends AppCompatActivity {
                         favoriteList.clear();
                         for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                             FavoriteItem item = document.toObject(FavoriteItem.class);
+                            // 로그 추가: 데이터 불러올 때 네이버 지도 링크 확인
+                            Log.d("HeartList", "불러온 네이버 지도 링크: " + item.getNaverMapLink());
                             favoriteList.add(item);
                         }
                         adapter.notifyDataSetChanged();
@@ -97,13 +100,17 @@ public class HeartList extends AppCompatActivity {
         }
     }
 
+
     public void startMapInfoActivity(FavoriteItem item) {
+
+        Log.d("HeartList", "네이버 지도 링크: " + item.getNaverMapLink());
+
         Intent intent = new Intent(this, MapInfoActivity.class);
         intent.putExtra("STORE_NAME", item.getStoreName());
         intent.putExtra("ADDRESS", item.getAddress());
         intent.putExtra("PHONE_NUMBER", item.getPhoneNumber());
         intent.putExtra("YOUTUBE_LINK", item.getYoutubeLink() != null ? item.getYoutubeLink() : ""); // 유튜브 링크 전달
-        intent.putExtra("NAVER_MAP_LINK", item.getNaverMapLink());
+        intent.putExtra("NAVER_MAP_LINK", item.getNaverMapLink()); // 네이버 지도 링크 전달
         startActivityForResult(intent, REQUEST_CODE);
     }
 }
