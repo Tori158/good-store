@@ -26,6 +26,14 @@ import ko.co.second.R;
 import ko.co.second.Review.Review;
 import ko.co.second.Review.Review_adapter;
 import android.util.Log;
+import ko.co.second.Review.WriteReview;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 public class MapInfoActivity extends AppCompatActivity {
 
@@ -83,6 +91,14 @@ public class MapInfoActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
+
+        Button makeReviewButton = findViewById(R.id.makeReviewButton);
+        makeReviewButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapInfoActivity.this, WriteReview.class);
+            intent.putExtra("storeName", storeName); // storeName을 전달
+            startActivity(intent);
+        });
+
 
         favoriteButton = findViewById(R.id.toggle_button);
         checkFavoriteStatus(storeName);

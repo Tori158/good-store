@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,8 +25,9 @@ import ko.co.second.map.StoreManager;
 public class SangmuActivity extends AppCompatActivity {
 
     private List<Store> sangmuStores; // 유튜버 맛상무의 스토어 리스트
-    private ArrayAdapter<String> adapter; // 리스트뷰 어댑터
+    private CustomAdapter adapter; // 커스텀 어댑터
     private List<String> storeNames; // 스토어 이름 리스트
+    private List<String> filteredStoreNames; // 필터링된 스토어 이름 리스트 (검색 결과 반영)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,23 +57,40 @@ public class SangmuActivity extends AppCompatActivity {
             storeNames.add(store.getStoreName());
         }
 
+        // 필터링된 스토어 이름 리스트 초기화
+        filteredStoreNames = new ArrayList<>(storeNames);
+
         // 리스트뷰 정보 설정
         ListView list = findViewById(R.id.ListView3);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, storeNames);
+        adapter = new CustomAdapter(this, android.R.layout.simple_list_item_1, storeNames);
         list.setAdapter(adapter);
 
         // 리스트 항목 클릭 시 MapInfoActivity로 이동
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Store selectedStore = sangmuStores.get(position);
-                Intent intent = new Intent(SangmuActivity.this, MapInfoActivity.class);
-                // 선택한 스토어의 정보를 MapInfoActivity로 전달
-                intent.putExtra("STORE_NAME", selectedStore.getStoreName());
-                intent.putExtra("PHONE_NUMBER", selectedStore.getPhoneNumber());
-                intent.putExtra("ADDRESS", selectedStore.getAddress());
-                intent.putExtra("YOUTUBE_LINK", selectedStore.getYoutubeLink());
-                startActivity(intent);
+                String selectedStoreName = adapter.getItem(position); // 필터링된 리스트에서 가져오기
+                Store selectedStore = null;
+
+                // 필터링된 이름에 맞는 스토어 객체를 sangmuStores에서 찾기
+                for (Store store : sangmuStores) {
+                    if (store.getStoreName().equals(selectedStoreName)) {
+                        selectedStore = store;
+                        break;
+                    }
+                }
+
+                if (selectedStore != null) {
+                    Intent intent = new Intent(SangmuActivity.this, MapInfoActivity.class);
+                    // 선택한 스토어의 정보를 MapInfoActivity로 전달
+                    intent.putExtra("STORE_NAME", selectedStore.getStoreName());
+                    intent.putExtra("PHONE_NUMBER", selectedStore.getPhoneNumber());
+                    intent.putExtra("ADDRESS", selectedStore.getAddress());
+                    intent.putExtra("YOUTUBE_LINK", selectedStore.getYoutubeLink());
+                    intent.putExtra("NAVER_MAP_LINK", selectedStore.getNaverMapLink());
+
+                    startActivity(intent);
+                }
             }
         });
 
@@ -86,12 +105,12 @@ public class SangmuActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText); // 검색어 변경 시 리스트 필터링
+                adapter.getFilter().filter(newText);
                 return false;
             }
         });
 
-        // 화면 이동 설정
+        // 화면 이동 설정 (Edge-to-Edge UI)
         View mainView = findViewById(R.id.main);
         ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
             WindowInsetsCompat systemInsets = insets;
@@ -108,6 +127,63 @@ public class SangmuActivity extends AppCompatActivity {
         if (controller != null) {
             controller.show(WindowInsetsCompat.Type.systemBars());
             controller.setAppearanceLightStatusBars(true); // 상태 표시줄의 아이콘 색상을 어둡게 설정
+        }
+    }
+
+    // CustomAdapter 클래스 정의
+    private class CustomAdapter extends ArrayAdapter<String> {
+
+        private List<String> originalList;
+        private List<String> filteredList;
+
+        public CustomAdapter(SangmuActivity context, int resource, List<String> objects) {
+            super(context, resource, objects);
+            this.originalList = new ArrayList<>(objects); // 원본 리스트 초기화
+            this.filteredList = objects; // 필터링된 리스트를 초기화
+        }
+
+        @Override
+        public int getCount() {
+            return filteredList.size(); // 필터링된 리스트의 크기를 반환
+        }
+
+        @Override
+        public String getItem(int position) {
+            return filteredList.get(position); // 필터링된 리스트의 항목을 반환
+        }
+
+        @Override
+        public Filter getFilter() {
+            return new Filter() {
+                @Override
+                protected FilterResults performFiltering(CharSequence constraint) {
+                    FilterResults results = new FilterResults();
+                    if (constraint == null || constraint.length() == 0) {
+                        // 필터링 조건이 없을 때는 전체 리스트 반환
+                        results.values = new ArrayList<>(originalList); // 필터링되지 않은 원본 리스트
+                        results.count = originalList.size();
+                    } else {
+                        // 필터링 조건에 맞는 결과 리스트 생성
+                        List<String> filteredStores = new ArrayList<>();
+                        String filterString = constraint.toString().toLowerCase();
+                        for (String storeName : originalList) {
+                            if (storeName.toLowerCase().contains(filterString)) {
+                                filteredStores.add(storeName);
+                            }
+                        }
+                        results.values = filteredStores;
+                        results.count = filteredStores.size();
+                    }
+                    return results;
+                }
+
+                @Override
+                protected void publishResults(CharSequence constraint, FilterResults results) {
+                    filteredList.clear();
+                    filteredList.addAll((List<String>) results.values); // 필터링된 리스트로 변경
+                    notifyDataSetChanged(); // 어댑터에 변경사항을 알림
+                }
+            };
         }
     }
 }
