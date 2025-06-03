@@ -5,3 +5,7 @@
 그걸 사용자에게 친숙한 유튜버가 추천한 맛집을 정리해서 사진과 글로 소개하는것이 아닌 유튜버 api를 
 
 이용하여 동영상 재생과 함께 맛집 정보를 얻을 수 있습니다.
+
+
+https://github.com/user-attachments/assets/f8458854-75ad-4c7c-beda-e7f9a1a5142b
+
